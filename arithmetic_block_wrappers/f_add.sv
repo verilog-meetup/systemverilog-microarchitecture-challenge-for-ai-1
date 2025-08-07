@@ -34,7 +34,7 @@ module f_add (
     logic [FLEN - 1:0] pre_res;
     logic              pre_down_valid;
     logic              pre_busy;
-    logic              pre_error;
+    logic [4:0]        pre_flags;
 
     // verilator lint_off PINMISSING
     wally_fpu i_fpu (
@@ -78,7 +78,7 @@ module f_add (
     always_ff @ (posedge clk)
     begin
         res_r   <= pre_res;
-        error_r <= pre_error;
+        error_r <= | pre_flags[4:1];
     end
 
 endmodule
